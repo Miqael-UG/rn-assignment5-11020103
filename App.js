@@ -1,81 +1,57 @@
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "react-native-vector-icons/Ionicons";
+import HomeScreen from "./screens/HomeScreen";
+import MyCardsScreen from "./screens/MyCards";
+import StatisticsScreen from "./screens/Statistics";
+import SettingsScreen from "./screens/Setting";
 
-const Header = () => {
-  return (
-    <View style={styles.headerContainer}>
-      <View style={{ flexDirection: "row" }}>
-        <View>
-          <Image
-            style={styles.image}
-            source={require("./assets/profile.png")}
-          />
-        </View>
-        <View>
-          <Text style={styles.welcomeText}>Welcome back,</Text>
-          <Text style={styles.userName}>Michael Bansah</Text>
-        </View>
-      </View>
-      <View style={styles.searchContainer}>
-        <Image style={styles.search} source={require("./assets/search.png")} />
-      </View>
-    </View>
-  );
-};
+const Tab = createBottomTabNavigator();
 
-const Card = () => {
-  return (
-    <View style={styles.card}>
-      <Image
-        resizeMode="contain"
-        style={styles.cardImage}
-        source={require("./assets/Card.png")}
-      />
-    </View>
-  );
-};
 export default function App() {
   return (
-    <SafeAreaView style={styles.mainContainer}>
-      <Header />
-      <Card />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === "Home") {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name === "MyCards") {
+              iconName = focused ? "card" : "card-outline";
+            } else if (route.name === "Statistics") {
+              iconName = focused ? "stats-chart" : "stats-chart-outline";
+            } else if (route.name === "Settings") {
+              iconName = focused ? "settings" : "settings-outline";
+            }
+
+            return <Icon name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: "#383FFA", // Active tab color
+          tabBarInactiveTintColor: "gray", // Inactive tab color
+          tabBarStyle: {
+            marginTop: 10,
+            height: 60,
+            backgroundColor: "white", // Optional: If you want a background color
+            borderTopWidth: 0, // Remove top border
+            elevation: 0, // Remove Android shadow
+            shadowOpacity: 0, // Remove iOS shadow
+          },
+          tabBarLabelStyle: {
+            fontWeight: "bold",
+            fontSize: 12,
+            marginBottom: 10, // Adjust the space between the icon and the text
+          },
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="MyCards" component={MyCardsScreen} />
+        <Tab.Screen name="Statistics" component={StatisticsScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingTop: 25,
-  },
-  image: {
-    marginRight: 10,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  welcomeText: {
-    fontSize: 16,
-    color: "gray",
-  },
-  userName: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  searchContainer: {
-    backgroundColor: "#f2f2f2",
-    padding: 16,
-    borderRadius: 50,
-  },
-  card: {
-    marginTop: 20,
-  },
-  cardImage: {
-    width: "100%",
-  },
-});
