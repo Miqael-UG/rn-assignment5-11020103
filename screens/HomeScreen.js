@@ -6,10 +6,17 @@ import {
   Text,
   View,
 } from "react-native";
-
-import { TransactionsHistoryData } from "../Data/mockupData";
+import React, { useContext } from "react";
+import {
+  TransactionsHistoryData,
+  TransactionsHistoryDataDark,
+} from "../Data/mockupData";
+import { ThemeDark, ThemeLight } from "../Data/mockupData";
+import { ThemeContext } from "../ThemeContext";
 
 const Header = () => {
+  const { theme } = useContext(ThemeContext);
+  console.log(theme);
   return (
     <View style={styles.headerContainer}>
       <View style={{ flexDirection: "row" }}>
@@ -21,11 +28,40 @@ const Header = () => {
         </View>
         <View>
           <Text style={styles.welcomeText}>Welcome back,</Text>
-          <Text style={styles.userName}>Michael Bansah</Text>
+          <Text
+            style={[
+              styles.userName,
+              {
+                color:
+                  theme === "light"
+                    ? ThemeLight.fontColor
+                    : ThemeDark.fontColor,
+              },
+            ]}
+          >
+            Michael Bansah
+          </Text>
         </View>
       </View>
-      <View style={styles.searchContainer}>
-        <Image style={styles.search} source={require("../assets/search.png")} />
+      <View
+        style={[
+          styles.searchContainer,
+          {
+            backgroundColor:
+              theme === "light"
+                ? ThemeLight.iconContainerColor
+                : ThemeDark.iconContainerColor,
+          },
+        ]}
+      >
+        <Image
+          style={styles.search}
+          source={
+            theme === "light"
+              ? require("../assets/search.png")
+              : require("../assets/search-white.png")
+          }
+        />
       </View>
     </View>
   );
@@ -44,75 +80,211 @@ const Card = () => {
 };
 
 const Transactions = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <View style={styles.transactions}>
       <View style={styles.transactionsContainer}>
-        <View style={styles.transactionsImageContainer}>
+        <View
+          style={[
+            styles.transactionsImageContainer,
+            {
+              backgroundColor:
+                theme === "light"
+                  ? ThemeLight.iconContainerColor
+                  : ThemeDark.iconContainerColor,
+            },
+          ]}
+        >
           <Image
-            source={require("../assets/send.png")}
+            source={
+              theme === "light"
+                ? require("../assets/send.png")
+                : require("../assets/send-white.png")
+            }
             style={styles.transactionImage}
           />
         </View>
-        <Text style={{ marginTop: 2 }}>Send</Text>
+        <Text
+          style={{
+            marginTop: 2,
+            color:
+              theme === "light" ? ThemeLight.fontColor : ThemeDark.fontColor,
+          }}
+        >
+          Send
+        </Text>
       </View>
       <View style={styles.transactionsContainer}>
-        <View style={styles.transactionsImageContainer}>
+        <View
+          style={[
+            styles.transactionsImageContainer,
+            {
+              backgroundColor:
+                theme === "light"
+                  ? ThemeLight.iconContainerColor
+                  : ThemeDark.iconContainerColor,
+            },
+          ]}
+        >
           <Image
-            source={require("../assets/recieve.png")}
+            source={
+              theme === "light"
+                ? require("../assets/recieve.png")
+                : require("../assets/recieve-white.png")
+            }
             style={styles.transactionImage}
           />
         </View>
-        <Text style={{ marginTop: 2 }}>Recieve</Text>
+        <Text
+          style={{
+            marginTop: 2,
+            color:
+              theme === "light" ? ThemeLight.fontColor : ThemeDark.fontColor,
+          }}
+        >
+          Recieve
+        </Text>
       </View>
       <View style={styles.transactionsContainer}>
-        <View style={styles.transactionsImageContainer}>
+        <View
+          style={[
+            styles.transactionsImageContainer,
+            {
+              backgroundColor:
+                theme === "light"
+                  ? ThemeLight.iconContainerColor
+                  : ThemeDark.iconContainerColor,
+            },
+          ]}
+        >
           <Image
-            source={require("../assets/loan.png")}
+            source={
+              theme === "light"
+                ? require("../assets/loan.png")
+                : require("../assets/loan-white.png")
+            }
             style={styles.transactionImage}
           />
         </View>
-        <Text style={{ marginTop: 2 }}>Loan</Text>
+        <Text
+          style={{
+            marginTop: 2,
+            color:
+              theme === "light" ? ThemeLight.fontColor : ThemeDark.fontColor,
+          }}
+        >
+          Loan
+        </Text>
       </View>
       <View style={styles.transactionsContainer}>
-        <View style={styles.transactionsImageContainer}>
+        <View
+          style={[
+            styles.transactionsImageContainer,
+            {
+              backgroundColor:
+                theme === "light"
+                  ? ThemeLight.iconContainerColor
+                  : ThemeDark.iconContainerColor,
+            },
+          ]}
+        >
           <Image
-            source={require("../assets/topUp.png")}
+            source={
+              theme === "light"
+                ? require("../assets/topUp.png")
+                : require("../assets/topUp-white.png")
+            }
             style={styles.transactionImage}
           />
         </View>
-        <Text style={{ marginTop: 2 }}>Top Up</Text>
+        <Text
+          style={{
+            marginTop: 2,
+            color:
+              theme === "light" ? ThemeLight.fontColor : ThemeDark.fontColor,
+          }}
+        >
+          Top Up
+        </Text>
       </View>
     </View>
   );
 };
 
 const TransactionHistory = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <View style={styles.transactionHistory}>
       <View style={styles.transactionTitleContainer}>
-        <Text style={styles.transactionTitle}>Transaction</Text>
-        <Text style={[{ color: "blue" }, styles.seeAll]}>See All</Text>
+        <Text
+          style={[
+            styles.transactionTitle,
+            {
+              color:
+                theme === "light" ? ThemeLight.fontColor : ThemeDark.fontColor,
+            },
+          ]}
+        >
+          Transaction
+        </Text>
+        <Text style={[{ color: "#4854FF" }, styles.seeAll]}>See All</Text>
       </View>
       <FlatList
-        data={TransactionsHistoryData}
-        renderItem={({ item, index }) => (
+        data={
+          theme === "light"
+            ? TransactionsHistoryData
+            : TransactionsHistoryDataDark
+        }
+        renderItem={({ item }) => (
           <View style={styles.transactionHistoryContainer}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View style={styles.transactionHistoryImageContainer}>
+              <View
+                style={[
+                  styles.transactionHistoryImageContainer,
+                  {
+                    backgroundColor:
+                      theme === "light"
+                        ? ThemeLight.iconContainerColor
+                        : ThemeDark.iconContainerColor,
+                  },
+                ]}
+              >
                 <Image
                   source={item.logo}
                   style={styles.transactionHistoryImage}
                 />
               </View>
               <View style={styles.transactionHistoryNameContainer}>
-                <Text style={styles.transactionHistoryName}>{item.title}</Text>
+                <Text
+                  style={[
+                    styles.transactionHistoryName,
+                    {
+                      color:
+                        theme === "light"
+                          ? ThemeLight.fontColor
+                          : ThemeDark.fontColor,
+                    },
+                  ]}
+                >
+                  {item.title}
+                </Text>
                 <Text style={styles.transactionHistoryCategory}>
                   {item.category}
                 </Text>
               </View>
             </View>
             <Text
-              style={[styles.transactionHistoryAmount, { color: item.type }]}
+              style={[
+                styles.transactionHistoryAmount,
+                {
+                  color:
+                    item.type === "black"
+                      ? theme === "light"
+                        ? "black"
+                        : "white"
+                      : "#4854FF",
+                },
+              ]}
             >
               {item.amount}
             </Text>
@@ -125,8 +297,19 @@ const TransactionHistory = () => {
 };
 
 export default function HomeScreen() {
+  const { theme } = useContext(ThemeContext);
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <SafeAreaView
+      style={[
+        styles.mainContainer,
+        {
+          backgroundColor:
+            theme === "light"
+              ? ThemeLight.backgroundColor
+              : ThemeDark.backgroundColor,
+        },
+      ]}
+    >
       <Header />
       <Card />
       <Transactions />
@@ -137,7 +320,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: "#FFFFFF",
     flex: 1,
     paddingHorizontal: 20,
   },
@@ -162,9 +344,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   searchContainer: {
-    backgroundColor: "#f2f2f2",
-    padding: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 50,
+    height: 50,
     borderRadius: 50,
+  },
+  search: {
+    width: 25,
+    height: 25,
   },
   card: {
     marginTop: 20,
@@ -181,7 +369,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   transactionsImageContainer: {
-    backgroundColor: "#f2f2f2",
     justifyContent: "center",
     alignItems: "center",
     width: 55,
@@ -208,7 +395,6 @@ const styles = StyleSheet.create({
   },
   seeAll: {
     fontSize: 16,
-    color: "blue",
     fontWeight: "bold",
   },
   transactionHistoryContainer: {
@@ -218,7 +404,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   transactionHistoryImageContainer: {
-    backgroundColor: "#f2f2f2",
     justifyContent: "center",
     alignItems: "center",
     width: 55,
