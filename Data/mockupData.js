@@ -24,7 +24,7 @@ export const TransactionsHistoryData = [
   {
     id: 2,
     title: "Spotify",
-    category: "Entertainment",
+    category: "Music",
     amount: "-$9.99",
     type: "black",
     logo: require("../assets/spotify.png"),
@@ -91,7 +91,7 @@ export const TransactionsHistoryDataDark = [
   {
     id: 2,
     title: "Spotify",
-    category: "Entertainment",
+    category: "Music",
     amount: "-$9.99",
     type: "black",
     logo: require("../assets/spotify.png"),

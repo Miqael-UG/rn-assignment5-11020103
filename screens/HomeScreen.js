@@ -2,6 +2,7 @@ import {
   FlatList,
   Image,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -310,6 +311,14 @@ export default function HomeScreen() {
         },
       ]}
     >
+      <StatusBar
+        backgroundColor={
+          theme === "light"
+            ? ThemeLight.backgroundColor
+            : ThemeDark.backgroundColor
+        }
+        barStyle={theme === "light" ? "dark-content" : "light-content"}
+      />
       <Header />
       <Card />
       <Transactions />
@@ -327,7 +336,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 45,
+    marginTop: 25,
   },
   image: {
     marginRight: 10,
@@ -382,7 +391,6 @@ const styles = StyleSheet.create({
   transactionHistory: {
     flex: 1,
     marginTop: 30,
-    paddingBottom: 10,
   },
   transactionTitleContainer: {
     flexDirection: "row",
